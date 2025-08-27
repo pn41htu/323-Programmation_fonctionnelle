@@ -78,4 +78,4 @@ List<Produit> produits = new List<Produit>()
     new Produit { Emplacement = 15, Producteur = "Crizzi", NomProduit = "Groseilles", Quantite = 12, Unité = "kg", PrixParUnite = 3.50 }
 };
 
-foreach (object Produit in Produit)
+Console.WriteLine("")
