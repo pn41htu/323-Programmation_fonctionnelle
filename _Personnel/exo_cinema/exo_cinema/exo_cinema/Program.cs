@@ -37,3 +37,10 @@ Console.WriteLine("Ex 4 : ");
 MoviesFiltered4.ForEach(i => Console.WriteLine($"{i.Title}"));
 
 
+Console.WriteLine();
+// Ex5
+List<Movie> MoviesFiltered5 = frenchMovies.Where(d => !d.StreamingPlatforms.Contains("Netflix")).ToList();
+Console.WriteLine("Ex 5 : ");
+MoviesFiltered5.ForEach(i => Console.WriteLine($"{i.Title}"));
+
+
