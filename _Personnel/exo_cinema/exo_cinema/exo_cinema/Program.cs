@@ -10,6 +10,7 @@ new Movie() { Title = "La Haine", Genre = "Drame", Rating = 8.1, Year = 1995, La
 new Movie() { Title = "Oldboy", Genre = "Thriller", Rating = 8.4, Year = 2003, LanguageOptions = new string[] {"Coréen", "English"}, StreamingPlatforms = new string[] {"Amazon"} }
 };
 
-List<Movie> MoviesFiltered = frenchMovies.Where(x => x.Genre != "Comédie" && x.Genre != "Drame").ToList(); 
+// Ex1
+List<Movie> MoviesFiltered = frenchMovies.Where(x => x.Genre != "Comédie" && x.Genre != "Drame").ToList();
 Console.WriteLine("Ex 1 : ");
-MoviesFiltered.ForEach(i => Console.WriteLine("{0}\t", i));
+MoviesFiltered.ForEach(i => Console.WriteLine($"{i.Title}"));
