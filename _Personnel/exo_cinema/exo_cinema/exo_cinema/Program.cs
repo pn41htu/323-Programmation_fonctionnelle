@@ -11,6 +11,13 @@ new Movie() { Title = "Oldboy", Genre = "Thriller", Rating = 8.4, Year = 2003, L
 };
 
 // Ex1
-List<Movie> MoviesFiltered = frenchMovies.Where(x => x.Genre != "Comédie" && x.Genre != "Drame").ToList();
+List<Movie> MoviesFiltered1 = frenchMovies.Where(x => x.Genre != "Comédie" && x.Genre != "Drame").ToList();
 Console.WriteLine("Ex 1 : ");
-MoviesFiltered.ForEach(i => Console.WriteLine($"{i.Title}"));
+MoviesFiltered1.ForEach(i => Console.WriteLine($"{i.Title}"));
+
+
+// Ex2 - CHANGEMENT (inférieur à 8.5 pour avoir des résultats)
+List<Movie> MoviesFiltered2 = frenchMovies.Where(r => r.Rating < 8.5).ToList();
+Console.WriteLine("Ex 2 : ");
+MoviesFiltered2.ForEach(i => Console.WriteLine($"{i.Title} - rating : {i.Rating}"));
+
