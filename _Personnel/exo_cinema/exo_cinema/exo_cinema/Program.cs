@@ -16,8 +16,16 @@ Console.WriteLine("Ex 1 : ");
 MoviesFiltered1.ForEach(i => Console.WriteLine($"{i.Title}"));
 
 
+Console.WriteLine();
 // Ex2 - CHANGEMENT (inférieur à 8.5 pour avoir des résultats)
 List<Movie> MoviesFiltered2 = frenchMovies.Where(r => r.Rating < 8.5).ToList();
 Console.WriteLine("Ex 2 : ");
 MoviesFiltered2.ForEach(i => Console.WriteLine($"{i.Title} - rating : {i.Rating}"));
+
+
+Console.WriteLine();
+// Ex3
+List<Movie> MoviesFiltered3 = frenchMovies.Where(annee => annee.Year < 2000).ToList();
+Console.WriteLine("Ex 3 : ");
+MoviesFiltered3.ForEach(i => Console.WriteLine($"{i.Title} - Year : {i.Year}"));
 
