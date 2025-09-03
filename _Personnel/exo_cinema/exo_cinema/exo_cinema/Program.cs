@@ -29,3 +29,11 @@ List<Movie> MoviesFiltered3 = frenchMovies.Where(annee => annee.Year < 2000).ToL
 Console.WriteLine("Ex 3 : ");
 MoviesFiltered3.ForEach(i => Console.WriteLine($"{i.Title} - Year : {i.Year}"));
 
+
+Console.WriteLine();
+// Ex4
+List<Movie> MoviesFiltered4 = frenchMovies.Where(d => !d.LanguageOptions.Contains("Français")).ToList();
+Console.WriteLine("Ex 4 : ");
+MoviesFiltered4.ForEach(i => Console.WriteLine($"{i.Title}"));
+
+
