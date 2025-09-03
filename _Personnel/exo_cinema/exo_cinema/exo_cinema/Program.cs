@@ -17,8 +17,8 @@ MoviesFiltered1.ForEach(i => Console.WriteLine($"{i.Title}"));
 
 
 Console.WriteLine();
-// Ex2 - CHANGEMENT (inférieur à 8.5 pour avoir des résultats)
-List<Movie> MoviesFiltered2 = frenchMovies.Where(r => r.Rating < 8.5).ToList();
+// Ex2 - CHANGEMENT (inférieur à 8.8 pour avoir des résultats)
+List<Movie> MoviesFiltered2 = frenchMovies.Where(r => r.Rating < 8.8).ToList();
 Console.WriteLine("Ex 2 : ");
 MoviesFiltered2.ForEach(i => Console.WriteLine($"{i.Title} - rating : {i.Rating}"));
 
@@ -42,5 +42,16 @@ Console.WriteLine();
 List<Movie> MoviesFiltered5 = frenchMovies.Where(d => !d.StreamingPlatforms.Contains("Netflix")).ToList();
 Console.WriteLine("Ex 5 : ");
 MoviesFiltered5.ForEach(i => Console.WriteLine($"{i.Title}"));
+
+
+Console.WriteLine();
+// Version 2 : Cumul
+List<Movie> MoviesFilteredCumul = frenchMovies.Where(d => !d.StreamingPlatforms.Contains("Netflix")).Where(d => !d.LanguageOptions.Contains("Français")).Where(annee => annee.Year < 2000).Where(r => r.Rating < 8.8).ToList();
+Console.WriteLine("Version 2 (Cumul) : ");
+MoviesFilteredCumul.ForEach(i => Console.WriteLine($"{i.Title}"));
+
+        Console.WriteLine(m.Title);
+    }
+}
 
 
