@@ -50,6 +50,57 @@ List<Movie> MoviesFilteredCumul = frenchMovies.Where(d => !d.StreamingPlatforms.
 Console.WriteLine("Version 2 (Cumul) : ");
 MoviesFilteredCumul.ForEach(i => Console.WriteLine($"{i.Title}"));
 
+
+Console.WriteLine();
+// Version 3 : Dynamique
+
+List<Movie> MoviesFilteredDyna = frenchMovies;
+
+Console.Write("Activer Ex1 (exclure Comédie et Drame) ? (o/n) : ");
+string rep1 = Console.ReadLine();
+if (rep1 == "o")
+{
+    MoviesFilteredDyna = MoviesFilteredDyna.Where(x => x.Genre != "Comédie" && x.Genre != "Drame").ToList();
+}
+
+Console.Write("Activer Ex2 (note < 8.8) ? (o/n) : ");
+string rep2 = Console.ReadLine();
+if (rep2 == "o")
+{
+    MoviesFilteredDyna = MoviesFilteredDyna.Where(r => r.Rating < 8.8).ToList();
+}
+
+Console.Write("Activer Ex3 (année < 2000) ? (o/n) : ");
+string rep3 = Console.ReadLine();
+if (rep3 == "o")
+{
+    MoviesFilteredDyna = MoviesFilteredDyna.Where(a => a.Year < 2000).ToList();
+}
+
+Console.Write("Activer Ex4 (sans Français dans les langues) ? (o/n) : ");
+string rep4 = Console.ReadLine();
+if (rep4 == "o")
+{
+    MoviesFilteredDyna = MoviesFilteredDyna.Where(d => !d.LanguageOptions.Contains("Français")).ToList();
+}
+
+Console.Write("Activer Ex5 (sans Netflix) ? (o/n) : ");
+string rep5 = Console.ReadLine();
+if (rep5 == "o")
+{
+    MoviesFilteredDyna = MoviesFilteredDyna.Where(d => !d.StreamingPlatforms.Contains("Netflix")).ToList();
+}
+
+Console.WriteLine();
+Console.WriteLine("Résultats de la Version 2 (dynamique) :");
+if (MoviesFilteredDyna.Count == 0)
+{
+    Console.WriteLine("Aucun film correspond");
+}
+else
+{
+    foreach (var m in MoviesFilteredDyna)
+    {
         Console.WriteLine(m.Title);
     }
 }
