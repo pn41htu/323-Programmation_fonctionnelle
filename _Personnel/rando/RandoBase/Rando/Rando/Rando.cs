@@ -50,20 +50,44 @@ namespace Rando
     new Point(340,300),
     new Point(380,350),
     new Point(420,400)
-            };
-
-            string output = "";
-            // 1/2 (tracé moins précis)
-            var reduits = points.Where((p, i) => i % 2 == 0).ToList();
-            output += "1/2 points : "
-                   + string.Join(" | ", reduits.Select(p => $"({p.X},{p.Y})")) + "\n";
-
-            // 2. distance totale
-            double longueur = points.Zip(points.Skip(1),
-                (a, b) => Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2)))
-                .Sum();
+            };                                                                           
+                                                                                         
+            string output = "";                                                          
+            // 1/2 (tracé moins précis)                                                  
+            var reduits = points.Where((p, i) => i % 2 == 0).ToList();                   
+            output += "1/2 points : "                                                    
+                   + string.Join(" | ", reduits.Select(p => $"({p.X},{p.Y})")) + "\n";   
+                                                                                         
+            // distance totale                                                        
+            double longueur = points.Zip(points.Skip(1),                                 
+                (a, b) => Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2)))    
+                .Sum();                                                                  
             output += $"distance totale = {longueur:F2}\n";
 
+            // denivele
+            int positif = points
+                .Skip(1)
+                .Select((p, i) => p.Y - points[i].Y)
+                .Where(d => d > 0)
+                .Sum();
+
+            int negatif = points
+                .Skip(1)
+                .Select((p, i) => p.Y - points[i].Y)
+                .Where(d => d < 0)
+                .Sum();
+
+            output += $"Dénivelé positif = {positif} et négatif = {negatif}\n";
+
+            // Max et min                          
+            int maxY = points.Max(p => p.Y);                                             
+            int minY = points.Min(p => p.Y);
+            output += $"(Y max) = {maxY}, (Y min) = {minY}\n";
+                                                                                         
+            // moyenne                                                
+            double moyX = points.Average(p => p.X);
+            double moyY = points.Average(p => p.Y);
+            output += $"Moyene = ({moyX:F1}, {moyY:F1})\n";                        
 
             MessageBox.Show(output, "Logs output");
         }
