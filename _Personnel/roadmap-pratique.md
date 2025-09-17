@@ -14,7 +14,7 @@ status: TODO / WIP / DONE
 | cinema     | DONE | #2      | x     | x       |             |      |       | x      |       |      |             |          |       |        | x         |      |      |
 | hardware   | TODO | #2      | x     |         |             |      | #2    |        |       |      |             |          |       |        | x         |      |      |
 | marketIsB  | WIP | x       | x     |         |             |      |       | #3     |       |      |             |          | #3    | #3     | x         |      |      |
-| rando      | TODO |         |       |         |             |      |       | #3     |       |      |             |          | #3    | #3     | x         |      |      |
+| rando      | WIP |         |       |         |             |      |       | #3     |       |      |             |          | #3    | #3     | x         |      |      |
 | swapi #4   | TODO | x       | x     | x       | x           | x    | x     | x      | x     | x    |             | x        | x     | x      | x         |      |      |
 | randoPure  | TODO | x       | x     |         |             |      |       |        |       |      | #5          |          | x     | x      | x         |      |      |
 | immutable  | TODO |         |       |         |             |      |       |        |       |      |             |          |       |        |           |      | #5   |
