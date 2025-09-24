@@ -5,6 +5,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using System.Globalization;
+using NetTopologySuite;
+using NetTopologySuite.IO;
+//using NetTopologySuite.IO.GPX;
 
 /*
 1.Lire le `.gpx` pour obtenir une liste de trackpoints
@@ -25,35 +28,35 @@ namespace Rando
         {
             InitializeComponent();
 
-            ExercicesLinq();
+            
         }
 
         private void Rando_Form_Paint(object sender, PaintEventArgs e)
         {
+
+
             Pen myPen = new Pen(Color.Red);
-            myPen.Width = 2;
+            myPen.Width = 500;
 
-            Point[] points = new Point[8]
-            {
-                new Point(30,50),
-                new Point(50,10),
-                new Point(80,50),
-                new Point(111,400),
-                new Point(120,50),
-                new Point(150,10),
-                new Point(180,50),
-                new Point(230,400)
+            var pointsRunning = LireGpx(@"gpx\Running.gpx").ToList();
 
-            };
+            // const int edgePadding = 20;
 
-            this.CreateGraphics().DrawLines(myPen, points);
+            double lengthRun = pointsRunning.Aggregate((a, b) => Math.Sqrt(Math.Pow(Math.Sqrt(Math.Pow(a.lat - b.lat, 2) + Math.Pow(a.lon - b.lon, 2)), 2) + Math.Pow(a.ele - b.ele, 2));
+ );
+
+            MessageBox.Show(Convert.ToString(lengthRun));
+
+            ExercicesLinq();
+
+
+            // this.CreateGraphics().DrawLines(myPen, (Point[])pointsRunning);
         }
 
         private void ExercicesLinq()
         {
-            Array pointsRunning = LireGpx(@"gpx\Running.gpx").ToArray();
-            int LengthPoints = pointsRunning.Length;
-            MessageBox.Show(Convert.ToString(LengthPoints));
+
+
         }
 
         private IEnumerable<Point> LireGpx(string relativePath)
@@ -68,8 +71,10 @@ namespace Rando
                                  {
                                      double lat = double.Parse(tp.Attribute("lat").Value, CultureInfo.InvariantCulture); //CultureInfo.InvariantCulture car si non format non valide
                                      double lon = double.Parse(tp.Attribute("lon").Value, CultureInfo.InvariantCulture);
+                                     double ele = double.Parse(tp.Attribute("ele").Value, CultureInfo.InvariantCulture);
 
-                                     int x = (int)(lon /** 10000*/);
+
+                                     int x = (int)(lon /**10000*/);
                                      int y = (int)(lat /** -10000*/);
 
                                      return new Point(x, y);

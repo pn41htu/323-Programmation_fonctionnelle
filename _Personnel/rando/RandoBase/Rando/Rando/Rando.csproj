@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GPXReaderLib" Version="2.0.2" />
     <PackageReference Include="NetTopologySuite.IO.GPX" Version="1.1.1" />
   </ItemGroup>
 
