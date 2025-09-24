@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using System.Globalization;
 
 /*
 1.Lire le `.gpx` pour obtenir une liste de trackpoints
@@ -23,7 +25,6 @@ namespace Rando
         {
             InitializeComponent();
 
-            // Exercices LINQ sur les points
             ExercicesLinq();
         }
 
@@ -32,12 +33,17 @@ namespace Rando
             Pen myPen = new Pen(Color.Red);
             myPen.Width = 2;
 
-            Point[] points = new Point[4]
+            Point[] points = new Point[8]
             {
                 new Point(30,50),
                 new Point(50,10),
                 new Point(80,50),
-                new Point(111,400)
+                new Point(111,400),
+                new Point(120,50),
+                new Point(150,10),
+                new Point(180,50),
+                new Point(230,400)
+
             };
 
             this.CreateGraphics().DrawLines(myPen, points);
@@ -45,62 +51,31 @@ namespace Rando
 
         private void ExercicesLinq()
         {
-            Point[] points = new Point[14]
-            {
-    new Point(30,50),
-    new Point(50,10),
-    new Point(80,50),
-    new Point(111,400),
-    new Point(140,380),
-    new Point(160,360),
-    new Point(180,300),
-    new Point(200,250),
-    new Point(230,200),
-    new Point(260,220),
-    new Point(300,260),
-    new Point(340,300),
-    new Point(380,350),
-    new Point(420,400)
-            };
-            
-            string output = "";                                                          
-            // 1/2 (tracé moins précis)                                                  
-            var reduits = points.Where((p, i) => i % 2 == 0).ToList();                   
-            output += "1/2 points : "                                                    
-                   + string.Join(" | ", reduits.Select(p => $"({p.X},{p.Y})")) + "\n";   
-                                                                                         
-            // distance totale                                                        
-            double longueur = points.Zip(points.Skip(1),                                 
-                (a, b) => Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2)))    
-                .Sum();                                                                  
-            output += $"distance totale = {longueur:F2}\n";
+            Array pointsRunning = LireGpx(@"gpx\Running.gpx").ToArray();
+            int LengthPoints = pointsRunning.Length;
+            MessageBox.Show(Convert.ToString(LengthPoints));
+        }
 
-            // denivele
-            int positif = points
-                .Skip(1)
-                .Select((p, i) => p.Y - points[i].Y)
-                .Where(d => d > 0)
-                .Sum();
+        private IEnumerable<Point> LireGpx(string relativePath)
+        {
+            string fullPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+            var doc = XDocument.Load(fullPath);
 
-            int negatif = points
-                .Skip(1)
-                .Select((p, i) => p.Y - points[i].Y)
-                .Where(d => d < 0)
-                .Sum();
+            XNamespace ns = "http://www.topografix.com/GPX/1/1";
 
-            output += $"Dénivelé positif = {positif} et négatif = {negatif}\n";
+            var trackpoints = doc.Descendants(ns + "trkpt")
+                                 .Select(tp =>
+                                 {
+                                     double lat = double.Parse(tp.Attribute("lat").Value, CultureInfo.InvariantCulture); //CultureInfo.InvariantCulture car si non format non valide
+                                     double lon = double.Parse(tp.Attribute("lon").Value, CultureInfo.InvariantCulture);
 
-            // Max et min                          
-            int maxY = points.Max(p => p.Y);                                             
-            int minY = points.Min(p => p.Y);
-            output += $"(Y max) = {maxY}, (Y min) = {minY}\n";
-                                                                                         
-            // moyenne                                                
-            double moyX = points.Average(p => p.X);
-            double moyY = points.Average(p => p.Y);
-            output += $"Moyene = ({moyX:F1}, {moyY:F1})\n";                        
+                                     int x = (int)(lon /** 10000*/);
+                                     int y = (int)(lat /** -10000*/);
 
-            MessageBox.Show(output, "Logs output");
+                                     return new Point(x, y);
+                                 });
+
+            return trackpoints;
         }
     }
 }
