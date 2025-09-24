@@ -4,6 +4,17 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
+/*
+1.Lire le `.gpx` pour obtenir une liste de trackpoints
+2. Transformer la liste pour obtenir une liste de points graphiques (`System.Drawing.Point`)
+3. Dessiner la trace graphiquement en une couleur
+4. Utiliser la fonction `Aggregate` pour calculer la longueur du parcours
+5. Utiliser les fonctions `Zip` et `Skip` pour calculer la même longueur d'une manière différente
+6. Utilisez une transformation pour dessiner le parcours avec une couleur qui est fonction de l'altitude. Attention: vous devez faire cela avec LinQ, sans boucle `for` ou `foreach`
+7. Dessiner le profil de la course
+8. Calculer le dénivelé positif et négatif
+*/
+
 namespace Rando
 {
     public partial class Rando : Form
@@ -50,8 +61,8 @@ namespace Rando
     new Point(340,300),
     new Point(380,350),
     new Point(420,400)
-            };                                                                           
-                                                                                         
+            };
+            
             string output = "";                                                          
             // 1/2 (tracé moins précis)                                                  
             var reduits = points.Where((p, i) => i % 2 == 0).ToList();                   
