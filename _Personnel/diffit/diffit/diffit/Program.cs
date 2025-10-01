@@ -4,6 +4,7 @@
 //Descr. : Entraînement au test 323
 //         Cet outil permet de comparer 2 fichiers (avec le même nombre de lignes) ligne par ligne et indiquer les différences... Il permet aussi de faire du chiffrement
 
+using System.Linq;
 ///MENU
 Console.WriteLine("+--------------------------------+");
 Console.WriteLine("|DIFFIT : A very limited DIFFTOOL|");
@@ -86,20 +87,39 @@ if (ignoreCase)
 
 
 // TODO: 06 Créer et remplir une liste de LinesComparison à partir de linesA et linesB
-List<LinesComparison> comparisons = new();
+List<LinesComparison> comparisons = linesA.Zip(linesB, (a, b) =>  new LinesComparison { Number = a.});
 
-// TODO: 07 Sélectionner les lignes qui ont des différences
-var diffLines = new Liste<LinesComparison>();
+// var comparisons = linesA.Zip(linesB, (first, second) => first == second).ToList();
 
-// TODO: 08 Afficher le nombre de lignes identiques et différentes entre les 2 fichiers
 
-// TODO: 09 Définir une fonction qui compte les différences (caractères différents) entre deux textes (sera utilisé pour les 2 lignes de A et B...)
-// Pour info/rappel, la fonction Zip (comme une fermeture éclair) permet d’associer deux listes.
-// Et pour info/rappel, un string est une liste de char...
-// Ainsi "12345".Zip("ABCDE", (a, b) => $"{a}{b}").ToList().ForEach(Console.Write);//1A2B3C4D5E
-// ATTENTION: zip ne prend que le nombre d’éléments minimum commun entre 2 listes...
-// Ceci implique une correction: en plus du nombre de différences, il faut ajouter la différence du nombre de caractères entre les deux...
-Func<LinesComparison, int> countVariations = _ => -1;
+
+
+// List<LinesComparison> comp2 = comparisons.ToList;
+/*
+for (int i = 0; i < linesA.Length; i++)
+{
+    if (linesA[i] != linesB[i])
+        comparisons.Add(linesA[i]);
+}
+
+*/
+
+
+
+
+
+    // TODO: 07 Sélectionner les lignes qui ont des différences
+    // var diffLines = new Liste<LinesComparison>();
+
+    // TODO: 08 Afficher le nombre de lignes identiques et différentes entre les 2 fichiers
+
+    // TODO: 09 Définir une fonction qui compte les différences (caractères différents) entre deux textes (sera utilisé pour les 2 lignes de A et B...)
+    // Pour info/rappel, la fonction Zip (comme une fermeture éclair) permet d’associer deux listes.
+    // Et pour info/rappel, un string est une liste de char...
+    // Ainsi "12345".Zip("ABCDE", (a, b) => $"{a}{b}").ToList().ForEach(Console.Write);//1A2B3C4D5E
+    // ATTENTION: zip ne prend que le nombre d’éléments minimum commun entre 2 listes...
+    // Ceci implique une correction: en plus du nombre de différences, il faut ajouter la différence du nombre de caractères entre les deux...
+    Func<LinesComparison, int> countVariations = _ => -1;
 
 // TODO: 10 Afficher pour chaque ligne différente, le nombre de variations
 
