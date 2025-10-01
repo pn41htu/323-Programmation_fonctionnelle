@@ -26,7 +26,7 @@ if (!filesAreValid)
 
 /// CHARGEMENT DES DONNÉES
 // TODO: 01 Charger le contenu texte du fichier A (indice: File.ReadAllLines...)
-string[] linesA = { "..." };
+string[] linesA = File.ReadAllLines(pathA);
 
 // TODO: 02 Charger le contenu texte du fichier B (indice: File.ReadAllLines...)
 string[] linesB = { "..." };
