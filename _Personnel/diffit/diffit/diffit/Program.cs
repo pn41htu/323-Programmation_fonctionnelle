@@ -44,9 +44,9 @@ Console.WriteLine(">Fichiers chargés avec succés");
 // Une fonction de nettoyage reçoit un texte (une ligne de fichier) et renvoie cette même ligne adaptée
 // Il existe la fonction Replace sur les string...
 // Le caractère tabulation s’écrit \t
-Func<string, string> cleanSpaces = text => text;
-Func<string, string> cleanTabs = text => text;
-Func<string, string> enforceCase = text => text;
+Func<string, string> cleanSpaces = text => text.Replace(" ", "");
+Func<string, string> cleanTabs = text => text.Replace(" ", "");
+Func<string, string> enforceCase = text => text.ToLower();
 
 /// OPTIONS DE NETTOYAGE
 Console.WriteLine("Choisir les options:");
